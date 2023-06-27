@@ -10,8 +10,11 @@ import org.cubingtr.cubingtrapi.auth.model.LoginResponse;
 import org.cubingtr.cubingtrapi.auth.security.UnauthorizedException;
 import org.cubingtr.cubingtrapi.common.model.GenericDataMap;
 import org.cubingtr.cubingtrapi.common.service.DateTimeConfig;
+import org.cubingtr.cubingtrapi.common.service.SecurityContextHelperService;
+import org.cubingtr.cubingtrapi.wca.entity.WcaCompetitionEntity;
 import org.cubingtr.cubingtrapi.wca.model.WcaAuthenticationRequest;
 import org.cubingtr.cubingtrapi.wca.model.WcaAuthenticationResponse;
+import org.cubingtr.cubingtrapi.wca.repository.WcaCompetitionRepository;
 import org.cubingtr.cubingtrapi.wca.service.WcaApiClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,6 +46,8 @@ public class UserControllerService {
 	private final JwtTokenUtil jwtTokenUtil;
 	private final WcaApiClient wcaApiClient;
 	private final AccountDomainService accountDomainService;
+
+	private final SecurityContextHelperService securityContextHelperService;
 
 	public LoginResponse login(String wcaAuthCode) {
 
@@ -83,10 +88,7 @@ public class UserControllerService {
 	}
 
 	public AccountDto me() {
-		AuthenticatedUser authenticatedUser = (AuthenticatedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if (authenticatedUser == null) {
-			throw new UnauthorizedException("invalid session");
-		}
+		AuthenticatedUser authenticatedUser = securityContextHelperService.getAuthenticatedUser();
 
 		AccountEntity accountEntity = accountDomainService.findAccountByWcaPk(authenticatedUser.getWcaPk());
 		AccountDto accountDto = AccountDto.builder()
