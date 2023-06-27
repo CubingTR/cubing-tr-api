@@ -16,4 +16,6 @@ public interface WcaCompetitionRepository extends JpaRepository<WcaCompetitionEn
 
     List<WcaCompetitionEntity> findAllByCountryidAndStartDateBefore(String countryId, LocalDate startDate);
 
+    List<WcaCompetitionEntity> findAllByCountryid(String countryId);
+
 }

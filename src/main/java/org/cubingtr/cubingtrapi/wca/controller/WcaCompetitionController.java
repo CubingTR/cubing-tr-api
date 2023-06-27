@@ -31,7 +31,8 @@ public class WcaCompetitionController {
 
 	@GetMapping("/past")
 	public ResponseEntity<List<WcaCompetitionEntity>> pastCompetitions() {
-		return ResponseEntity.ok(wcaCompetitionRepository.findAllByCountryidAndStartDateBefore("Turkey", LocalDate.now()));
+		//return ResponseEntity.ok(wcaCompetitionRepository.findAllByCountryidAndStartDateBefore("Turkey", LocalDate.now()));
+		return ResponseEntity.ok(wcaCompetitionRepository.findAllByCountryid("Turkey"));
 	}
 
 	@GetMapping(value = "/event")
