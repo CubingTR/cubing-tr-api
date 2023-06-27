@@ -32,7 +32,7 @@ public class WcaCompetitionController {
 				.stream()
 				.filter(wcaCompetitionEntity -> LocalDate.now().isBefore(LocalDate.of(wcaCompetitionEntity.getYear(), wcaCompetitionEntity.getMonth(), wcaCompetitionEntity.getDay())))
 				.collect(Collectors.toList())
-				.stream().sorted((o1, o2) -> LocalDate.of(o1.getYear(), o1.getMonth(), o1.getDay()).compareTo(LocalDate.of(o2.getYear(), o2.getMonth(), o2.getDay())))
+				.stream().sorted((comp1, comp2) -> LocalDate.of(comp2.getYear(), comp2.getMonth(), comp2.getDay()).compareTo(LocalDate.of(comp1.getYear(), comp1.getMonth(), comp1.getDay())))
 				.collect(Collectors.toList())
 		);
 	}
@@ -44,7 +44,7 @@ public class WcaCompetitionController {
 				.stream()
 				.filter(wcaCompetitionEntity -> LocalDate.now().isAfter(LocalDate.of(wcaCompetitionEntity.getYear(), wcaCompetitionEntity.getMonth(), wcaCompetitionEntity.getDay())))
 				.collect(Collectors.toList())
-				.stream().sorted((o1, o2) -> LocalDate.of(o1.getYear(), o1.getMonth(), o1.getDay()).compareTo(LocalDate.of(o2.getYear(), o2.getMonth(), o2.getDay())))
+				.stream().sorted((comp1, comp2) -> LocalDate.of(comp2.getYear(), comp2.getMonth(), comp2.getDay()).compareTo(LocalDate.of(comp1.getYear(), comp1.getMonth(), comp1.getDay())))
 				.collect(Collectors.toList())
 		);
 	}
