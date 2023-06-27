@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/wca-competition")
@@ -26,13 +27,22 @@ public class WcaCompetitionController {
 
 	@GetMapping("/future")
 	public ResponseEntity<List<WcaCompetitionEntity>> futureCompetitions() {
-		return ResponseEntity.ok(wcaCompetitionRepository.findAllByCountryidAndStartDateAfter("Turkey", LocalDate.now()));
+		//return ResponseEntity.ok(wcaCompetitionRepository.findAllByCountryidAndStartDateAfter("Turkey", LocalDate.now()));
+		return ResponseEntity.ok(wcaCompetitionRepository.findAllByCountryid("Turkey")
+				.stream()
+				.filter(wcaCompetitionEntity -> LocalDate.now().isBefore(LocalDate.of(wcaCompetitionEntity.getYear(), wcaCompetitionEntity.getMonth(), wcaCompetitionEntity.getDay())))
+				.collect(Collectors.toList())
+		);
 	}
 
 	@GetMapping("/past")
 	public ResponseEntity<List<WcaCompetitionEntity>> pastCompetitions() {
 		//return ResponseEntity.ok(wcaCompetitionRepository.findAllByCountryidAndStartDateBefore("Turkey", LocalDate.now()));
-		return ResponseEntity.ok(wcaCompetitionRepository.findAllByCountryid("Turkey"));
+		return ResponseEntity.ok(wcaCompetitionRepository.findAllByCountryid("Turkey")
+				.stream()
+				.filter(wcaCompetitionEntity -> LocalDate.now().isAfter(LocalDate.of(wcaCompetitionEntity.getYear(), wcaCompetitionEntity.getMonth(), wcaCompetitionEntity.getDay())))
+				.collect(Collectors.toList())
+		);
 	}
 
 	@GetMapping(value = "/event")
