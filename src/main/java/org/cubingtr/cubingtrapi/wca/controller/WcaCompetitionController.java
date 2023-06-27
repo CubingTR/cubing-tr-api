@@ -32,6 +32,8 @@ public class WcaCompetitionController {
 				.stream()
 				.filter(wcaCompetitionEntity -> LocalDate.now().isBefore(LocalDate.of(wcaCompetitionEntity.getYear(), wcaCompetitionEntity.getMonth(), wcaCompetitionEntity.getDay())))
 				.collect(Collectors.toList())
+				.stream().sorted((o1, o2) -> LocalDate.of(o1.getYear(), o1.getMonth(), o1.getDay()).compareTo(LocalDate.of(o2.getYear(), o2.getMonth(), o2.getDay())))
+				.collect(Collectors.toList())
 		);
 	}
 
@@ -41,6 +43,8 @@ public class WcaCompetitionController {
 		return ResponseEntity.ok(wcaCompetitionRepository.findAllByCountryid("Turkey")
 				.stream()
 				.filter(wcaCompetitionEntity -> LocalDate.now().isAfter(LocalDate.of(wcaCompetitionEntity.getYear(), wcaCompetitionEntity.getMonth(), wcaCompetitionEntity.getDay())))
+				.collect(Collectors.toList())
+				.stream().sorted((o1, o2) -> LocalDate.of(o1.getYear(), o1.getMonth(), o1.getDay()).compareTo(LocalDate.of(o2.getYear(), o2.getMonth(), o2.getDay())))
 				.collect(Collectors.toList())
 		);
 	}
