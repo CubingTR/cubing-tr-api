@@ -9,6 +9,7 @@ import org.cubingtr.cubingtrapi.wca.repository.WcaCompetitionRepository;
 import org.cubingtr.cubingtrapi.wca.repository.WcaEventRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,16 @@ public class WcaCompetitionController {
 
 	private final WcaCompetitionRepository wcaCompetitionRepository;
 	private final WcaCompetitionEventRepository competitionEventRepository;
+
+	@GetMapping("/{competitionId}")
+	public ResponseEntity<WcaCompetitionEntity> getCompetition(@PathVariable("competitionId") String competitionId) {
+		WcaCompetitionEntity wcaCompetitionEntity = wcaCompetitionRepository.findById(competitionId);
+
+		wcaCompetitionEntity.setCompetitionEventEntityList(competitionEventRepository.findAllByCompetitionId(wcaCompetitionEntity.getId()));
+
+		return ResponseEntity.ok(wcaCompetitionEntity);
+	}
+
 
 	@GetMapping("/future")
 	public ResponseEntity<List<WcaCompetitionEntity>> futureCompetitions() {
