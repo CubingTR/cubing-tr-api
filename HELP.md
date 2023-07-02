@@ -3,9 +3,14 @@
 ## Initial setup
 edit the file `application-local-mysql.properties` to setup local db access information
 
-`spring.datasource.username=root
+`
+spring.datasource.username=root
 spring.datasource.password=Cubingtr2023..
 `
+
+## Run the application
+
+Run CubingTrApiApplication.java as an executable. you should have the backend API service up and running at port 8080
 
 
 ### Reference Documentation
