@@ -7,13 +7,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
-@Table(schema = "wca", name = "competition_events", catalog = "wca")
+@Table(schema = "wca", name = "registrations", catalog = "wca")
 @Getter
 @Setter
-public class WcaCompetitionEventEntity {
+public class WcaRegistrationEntity {
 
 	@Id
 	private Long id;
@@ -21,11 +20,13 @@ public class WcaCompetitionEventEntity {
 	@Column(name = "competition_id")
 	private String competitionId;
 
-	@Column(name = "event_id")
-	private String eventId;
+	@Column(name = "user_id")
+	private Long userId;
 
-	private String qualification;
+	@Column(name = "accepted_by")
+	private Long acceptedBy;
 
-	@Transient
-	private WcaEventEntity wcaEventEntity;
+	@Column(name = "guests")
+	private Integer guests;
+
 }

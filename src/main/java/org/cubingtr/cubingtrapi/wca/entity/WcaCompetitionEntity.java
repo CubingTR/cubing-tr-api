@@ -47,4 +47,10 @@ public class WcaCompetitionEntity {
 	@Transient
 	private List<WcaCompetitionEventEntity> competitionEventEntityList = new ArrayList<>();
 
+	@Transient
+	private WcaRegistrationEntity wcaRegistrationEntity;
+
+	@Transient
+	private boolean isUserRegistered;
+
 }
